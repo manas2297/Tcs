@@ -18,13 +18,13 @@
           <table class="table table-bordered">
             <thead>
               <tr>
-                <th>Emp_id</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Hired Date</th>
+                <th width="5%">Emp_id</th>
+                <th width="10%">Name</th>
+                <th width="10%">Email</th>
+                <th width="8%">Hired Date</th>
                 <th>Address</th>
                 <th>Birthdate</th>
-                <th>Action</th>
+                <th width="15%">Action</th>
               </tr>
             </thead>
             <tbody>

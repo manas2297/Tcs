@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\User;
+use Illuminate\Support\Facades\Hash;
+use App\Http\Controllers\Controller;
 class EmployeeManagementController extends Controller
 {
     /**
@@ -31,7 +33,7 @@ class EmployeeManagementController extends Controller
      */
     public function create()
     {
-        //
+        return view('emp-manage/create');
     }
 
     /**
@@ -42,7 +44,18 @@ class EmployeeManagementController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validateInput($request);
+        User::create([
+          'name'=> $request['name'],
+          'email'=> $request['email'],
+          'password'=> Hash::make($request['password']),
+          'DOB'=> $request['dob'],
+          'hiredDate'=> $request['hiredDate'],
+
+          'address'=> $request['address']
+
+        ]);
+        return redirect()->intended('/emp-manage');
     }
 
     /**
@@ -89,5 +102,16 @@ class EmployeeManagementController extends Controller
     {
         User::where('id',$id)->delete();
         return redirect()->intended('/emp-manage');
+    }
+    private function validateInput($request){
+      $this->validate($request,[
+        'name'=> 'required|max:20',
+        'email'=> 'required|email|max:255|unique:users',
+        'password'=> 'required|min:6',
+        'dob'=> 'required|date',
+        'hiredDate'=>'required|date',
+        'address'=>'required|max:255'
+
+      ]);
     }
 }
