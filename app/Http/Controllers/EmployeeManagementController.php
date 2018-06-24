@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
+use App\User;
 class EmployeeManagementController extends Controller
 {
     /**
@@ -11,6 +12,7 @@ class EmployeeManagementController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
      public function __construct()
     {
         $this->middleware('auth:admin');
@@ -18,7 +20,8 @@ class EmployeeManagementController extends Controller
 
     public function index()
     {
-        return view('emp-manage/index');
+        $users = User::all();
+        return view('emp-manage/index',compact('users'));
     }
 
     /**
@@ -84,6 +87,7 @@ class EmployeeManagementController extends Controller
      */
     public function destroy($id)
     {
-        //
+        User::where('id',$id)->delete();
+        return redirect()->intended('/emp-manage');
     }
 }
