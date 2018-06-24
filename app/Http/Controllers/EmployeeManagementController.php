@@ -77,7 +77,11 @@ class EmployeeManagementController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::find($id);
+        if($user==null||count($user)==0){
+          return redirect()->intended('/emp-manage');
+        }
+        return view('emp-manage.edit',['user'=>$user]);
     }
 
     /**
@@ -89,7 +93,24 @@ class EmployeeManagementController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = User::findOrFail($id);
+        $constraint = [
+          'name'=> 'required|max:20',
+          'address'=>'required|max:255'
+        ];
+        $input = [
+          'name'=> $request['name'],
+          'address'=>$request['address']
+        ];
+        if($request['password']!=null && strlen($request['password'])>0 ){
+          $constraint['password']='required|min:6';
+          $input['password']=Hash::make($request['password']);
+        }
+        $this->validate($request,$constraint);
+        User::where('id',$id)->update($input);
+
+        return redirect()->intended('/emp-manage');
+
     }
 
     /**
