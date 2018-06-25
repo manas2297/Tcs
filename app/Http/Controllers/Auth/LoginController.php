@@ -2,8 +2,16 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Http\Request;
+use Illuminate\Auth\Events\Login;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\DB;
+
+use App\UserDetail;
+use App\Events\Event;
 
 class LoginController extends Controller
 {
@@ -36,4 +44,12 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+    protected function authenticated (Request $request, Authenticatable $user)
+    {
+      UserDetail::create([
+        'user_id'=>Auth::id()
+      ]);
+      return redirect()->intended($this->redirectTo);
+    }
+
 }
