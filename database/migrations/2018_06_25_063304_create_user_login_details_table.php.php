@@ -11,15 +11,20 @@ class CreateUserLoginDetailsTable extends Migration
      *
      * @return void
      */
-    
+
 
     public function up()
     {
         Schema::create('user_login_details', function (Blueprint $table) {
-            $table->increments('user_id');
-            $table->timestamp('clock_in_at')->nullable();
+            $table->increments('id');
+            $table->bigInteger('user_id');
+            $table->date('clock_in_date')->nullable();
+            $table->dateTime('clock_in_time')->nullable();
+            $table->date('clock_out_date')->nullable();
+            $table->dateTime('clock_out_time')->nullable();
+            $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
 
 
         });

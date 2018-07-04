@@ -14,8 +14,8 @@
                         </div>
                     @endif
 
-                    You are logged in <strong>Users</strong>!
-                </div>
+                    You are <strong> Clocked In At {{Auth::user()->last_login}} </strong>!
+
             </div>
         </div>
     </div>
