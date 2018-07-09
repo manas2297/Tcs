@@ -17,4 +17,5 @@ class UserDetail extends Model
 
 
   protected $table = 'user_login_details';
+  protected $dates = ['clock_in_time','clock_out_time'];
 }

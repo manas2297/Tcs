@@ -28,3 +28,7 @@ Route::prefix('admin')->group(function(){
 });
 
 Route::resource('emp-manage','EmployeeManagementController');
+Route::get('report/index', 'ReportController@index')->name('report.index');
+Route::post('report/search', 'ReportController@search')->name('report.search');
+Route::post('report/excel', 'ReportController@exportExcel')->name('report.excel');
+Route::post('report/pdf', 'ReportController@exportPDF')->name('report.pdf');

@@ -98,7 +98,7 @@
         <!-- Optionally, you can add icons to the links -->
         <li class="active"><a href="{{route('admin.dashboard')}}"><i class="fa fa-link"></i> <span>DashBoard</span></a></li>
         <li><a href="{{url('emp-manage')}}"><i class="fa fa-link"></i><span>Employee Management</span></a></li>
-        <li><a href="#"><i class="fa fa-link"></i><span>Reports</span></a></li>
+        <li><a href="{{route('report.index')}}"><i class="fa fa-link"></i><span>Reports</span></a></li>
 
       </ul>
       <!-- /.sidebar-menu -->
