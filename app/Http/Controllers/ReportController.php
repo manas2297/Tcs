@@ -8,6 +8,7 @@ use App\User;
 use App\UserDetail;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
+use PDF;
 
 class ReportController extends Controller
 {
@@ -26,7 +27,7 @@ class ReportController extends Controller
         $format = 'Y/m/d';
         $now = date($format);
         $to = date($format);
-        $constraints = ['from'=> $now,'to'=>$to];
+        $constraints = ['from'=> $now,'to'=>$to,'emp'=>''];
         $employees = $this -> getEmployees($constraints);
         $emps = User::all();
 
@@ -51,9 +52,27 @@ class ReportController extends Controller
           //return redirect()->intended('report/index');
         //}
           return view('report/index',['employees'=>$employees,'searchval'=>$constraints,'emps'=>$emps]);
-    
+
 
     }
+
+    public function exportPDF(Request $request) {
+         $constraints = [
+            'from' => $request['from'],
+            'to' => $request['to'],
+            'emp'=> $request['employee']
+        ];
+        $employees = $this->getEmployees2($constraints);
+        foreach ($employees as $employee){
+
+          $employee->total = $employee->clock_out_time->diff($employee->clock_in_time)->format('%H:%i:%s');
+        }
+        $pdf = PDF::loadView('/report/pdf', ['employees' => $employees, 'searchval' => $constraints]);
+        return $pdf->download('report_from_'. $request['from'].'_to_'.$request['to'].'pdf');
+        // return view('system-mgmt/report/pdf', ['employees' => $employees, 'searchingVals' => $constraints]);
+    }
+
+
     /**
      * Show the form for creating a new resource.
      *

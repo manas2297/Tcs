@@ -7,21 +7,13 @@
           <div class="col-sm-4">
             <h3 class="box-title">Employee Attendance Report</h3>
           </div>
-          <div class="col-sm-4 pull-right">
-            <form class="form-horizontal" role="form" method="POST" action="{{ route('report.excel') }}">
-               {{ csrf_field() }}
-               <input type="hidden" value="{{$searchval['from']}}" name="from" />
-               <input type="hidden" value="{{$searchval['to']}}" name="to" />
-               <button type="submit" class="btn btn-primary">
-                 Export to Excel
-               </button>
-           </form>
-          </div>
+
           <div class="col-sm-4 pull-right">
             <form class="form-horizontal" role="form" method="POST" action="{{ route('report.pdf') }}">
                 {{ csrf_field() }}
-                <input type="hidden" value="" name="from" />
-                <input type="hidden" value="" name="to" />
+                <input type="hidden" value="{{$searchval['from']}}" name="from" />
+                <input type="hidden" value="{{$searchval['to']}}" name="to" />
+                <input type="hidden" name="employee" value="{{$searchval['emp']}}"/>
                 <button type="submit" class="btn btn-danger">
                   Export to PDF
                 </button>

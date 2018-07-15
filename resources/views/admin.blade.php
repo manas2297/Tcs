@@ -6,7 +6,7 @@
     <h1>Admin Dashboard</h1>
   </section>
   <section class="content container-fluid">
-    <p>This is to be displayed.</p>
+    
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
