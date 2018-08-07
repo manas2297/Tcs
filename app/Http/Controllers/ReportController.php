@@ -41,6 +41,7 @@ class ReportController extends Controller
           'emp'=>$request['employee']
         ];
         //$data = UserDetail::where('clock_in_date','>=',$request['from'])->where('clock_in_date','<=',$request['to'])->where('user_id',$request['employee'])->get();
+
         $employees = $this->getEmployees2($constraints);
         foreach ($employees as $employee){
 
@@ -139,6 +140,10 @@ class ReportController extends Controller
         //
     }
     private function getEmployees2($constraints){
+      if($constraints['emp']=='1111'){
+        $employees = UserDetail::leftJoin('users','user_login_details.user_id','=','users.id')->where('clock_in_date','>=',$constraints['from'])->where('clock_in_date','<=',$constraints['to'])->get();
+        return $employees;
+      }
       $employees = UserDetail::leftJoin('users','user_login_details.user_id','=','users.id')->where('user_id','=',$constraints['emp'])->where('clock_in_date','>=',$constraints['from'])->where('clock_in_date','<=',$constraints['to'])->get();
       return $employees;
     }

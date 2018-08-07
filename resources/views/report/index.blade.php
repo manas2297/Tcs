@@ -71,6 +71,7 @@
                         @foreach($emps as $emp)
                           <option value="{{$emp->id}}"> Id: {{$emp->id}} {{$emp->name}}</option>
                         @endforeach
+                        <<option value="1111">All</option>
                     </select>
                   </div>
                 </div>
